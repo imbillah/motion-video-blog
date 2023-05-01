@@ -7,20 +7,22 @@ import {
   Video,
   Search,
 } from "../../components";
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
-
+import { categories } from "../../data";
 const Home = ({ user }) => {
   return (
-    <>
+    <Box>
       <Navbar user={user} />
       <Flex
         direction={"column"}
         justifyContent={"center"}
         alignItems={"center"}
-        width={20}
+        width={[14, 20]}
+        gap={8}
       >
-        <Category />
+        {categories &&
+          categories.map((data) => <Category key={data.id} catData={data} />)}
       </Flex>
       <Flex
         width={"full"}
@@ -36,7 +38,7 @@ const Home = ({ user }) => {
           <Route path="/search" element={<Search />} />
         </Routes>
       </Flex>
-    </>
+    </Box>
   );
 };
 
