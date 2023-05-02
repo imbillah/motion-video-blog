@@ -13,14 +13,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import {
+  IoCheckmark,
   IoChevronDown,
   IoCloudUpload,
   IoLocation,
   IoTrash,
+  IoWarning,
 } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
 import { categories } from "../../data";
-import { Spinner } from "../../components";
+import { Notify, Spinner } from "../../components";
 import initilizeFirebase from "../../firebase/Config";
 import {
   getStorage,
@@ -36,6 +38,10 @@ const Upload = () => {
   const [videoAsset, setVideoAseet] = useState(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(1);
+  const [alert, setAlert] = useState(false);
+  const [alertStatus, setAlertStatus] = useState("");
+  const [alertText, setAlertText] = useState("");
+  const [alertIcon, setAlertIcon] = useState(null);
 
   const storage = getStorage(initilizeFirebase());
 
@@ -59,6 +65,13 @@ const Upload = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setVideoAseet(downloadURL);
           setLoading(false);
+          setAlert(true);
+          setAlertText("Your video is uploaded successfully");
+          setAlertStatus("success");
+          setAlertIcon(<IoCheckmark fontSize={25} />);
+          setTimeout(() => {
+            setAlert(false);
+          }, 3500);
         });
       }
     );
@@ -68,6 +81,13 @@ const Upload = () => {
     deleteObject(deleteRef)
       .then(() => {
         setVideoAseet(null);
+        setAlert(true);
+        setAlertText("Your video has been removed");
+        setAlertStatus("error");
+        setAlertIcon(<IoWarning fontSize={25} />);
+        setTimeout(() => {
+          setAlert(false);
+        }, 3500);
       })
       .catch((error) => {
         console.log(error);
@@ -94,6 +114,9 @@ const Upload = () => {
           gap={2}
           height={"95vh"}
         >
+          {alert && (
+            <Notify status={alertStatus} text={alertText} icon={alertIcon} />
+          )}
           <Input
             variant={"flushed"}
             placeholder="Title"
