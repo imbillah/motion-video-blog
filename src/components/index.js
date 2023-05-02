@@ -6,5 +6,6 @@ import Search from "./Home/Search";
 import Navbar from "./layout/Navbar";
 import Category from "./Home/Category";
 import Video from "./Home/Video";
+import Spinner from "./others/Spinner";
 
-export { Home, Login, Upload, Feeds, Search, Navbar, Category, Video };
+export { Home, Login, Upload, Feeds, Search, Navbar, Category, Video, Spinner };

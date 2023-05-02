@@ -8,7 +8,7 @@ import { Box, Tooltip } from "@chakra-ui/react";
 const Category = ({ catData }) => {
   const Icon = eval(catData.icon);
   return (
-    <div style={{ background: "" }}>
+    <Box color={"red"}>
       <Link to={`/category/${catData.name}`}>
         <Tooltip
           hasArrow
@@ -18,10 +18,10 @@ const Category = ({ catData }) => {
           arrowSize={5}
           placement="right"
         >
-          <Box>{<Icon fontSize={30} />}</Box>
+          <Box>{<Icon fontSize={25} />}</Box>
         </Tooltip>
       </Link>
-    </div>
+    </Box>
   );
 };
 
