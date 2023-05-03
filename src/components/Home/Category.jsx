@@ -18,7 +18,7 @@ const Category = ({ catData }) => {
           arrowSize={5}
           placement="right"
         >
-          <Box>{<Icon fontSize={25} />}</Box>
+          <Box>{<Icon fontSize={30} />}</Box>
         </Tooltip>
       </Link>
     </Box>

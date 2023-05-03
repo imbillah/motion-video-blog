@@ -22,6 +22,7 @@ const Home = ({ user }) => {
           width={[14, 20]}
           gap={8}
           marginTop={8}
+          borderRight={"1px"}
         >
           {categories &&
             categories.map((data) => <Category key={data.id} catData={data} />)}

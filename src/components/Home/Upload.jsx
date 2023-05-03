@@ -20,10 +20,14 @@ import {
   IoTrash,
   IoWarning,
 } from "react-icons/io5";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import React, { useEffect, useState } from "react";
 import { categories } from "../../data";
 import { Notify, Spinner } from "../../components";
 import initilizeFirebase from "../../firebase/Config";
+import { fetchUser } from "../../utils/getUser";
+
 import {
   getStorage,
   ref,
@@ -31,6 +35,8 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 const Upload = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Select a category");
@@ -42,9 +48,12 @@ const Upload = () => {
   const [alertStatus, setAlertStatus] = useState("");
   const [alertText, setAlertText] = useState("");
   const [alertIcon, setAlertIcon] = useState(null);
+  const [description, setDescription] = useState("");
 
+  const [userInfo] = fetchUser();
   const storage = getStorage(initilizeFirebase());
-
+  const firebaseDB = getFirestore(initilizeFirebase());
+  const navigate = useNavigate();
   // uploading video to firestore
   const handleUpload = (e) => {
     setLoading(true);
@@ -76,6 +85,7 @@ const Upload = () => {
       }
     );
   };
+  // deleting video
   const deleteVideo = () => {
     const deleteRef = ref(storage, videoAsset);
     deleteObject(deleteRef)
@@ -93,20 +103,32 @@ const Upload = () => {
         console.log(error);
       });
   };
+  // uploading details
+  const uploadDetails = async () => {
+    try {
+      setLoading(true);
+      const data = {
+        id: `${Date.now()}`,
+        userId: userInfo?.uid,
+        title,
+        category,
+        location,
+        videoUrl: videoAsset,
+        description,
+      };
+      await setDoc(doc(firebaseDB, "videos", `${Date.now()}`), data);
+      setLoading(false);
+      navigate("/", { replace: true });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   return (
     <Box width={"full"}>
-      <Flex
-        justifyContent={"center"}
-        alignItems={"center"}
-        minHeight={"100vh"}
-        bg={"white"}
-      >
+      <Flex justifyContent={"center"} alignItems={"center"} minHeight={"100vh"}>
         <Flex
           bg={"black"}
-          width={"90%"}
-          border={"1px"}
-          borderColor={"gray"}
-          borderRadius={"md"}
+          width={["95%", "90%"]}
           p={4}
           flexDirection={"column"}
           alignItems={"center"}
@@ -124,7 +146,7 @@ const Upload = () => {
             isRequired
             errorBorderColor="red"
             type={"text"}
-            _placeholder={{ color: "gray.500" }}
+            _placeholder={{ color: "gray.300" }}
             fontSize={20}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -140,19 +162,19 @@ const Upload = () => {
             <Menu>
               <MenuButton
                 as={Button}
-                rightIcon={<IoChevronDown fontSize={25} />}
+                rightIcon={<IoChevronDown fontSize={20} />}
                 width={"full"}
               >
                 {category}
               </MenuButton>
-              <MenuList zIndex={101} width={"md"} shadow={"xl"}>
+              <MenuList zIndex={101} width={["100%", "md"]}>
                 {categories &&
                   categories.map((item) => (
                     <MenuItem
                       key={item.id}
-                      _hover={{ bg: "blackAlpha.300" }}
+                      _hover={{ bg: "gray.300" }}
                       px={4}
-                      fontSize={20}
+                      fontSize={16}
                       onClick={() => setCategory(item.name)}
                     >
                       {item.name}
@@ -172,7 +194,7 @@ const Upload = () => {
                 isRequired
                 errorBorderColor="red"
                 type={"text"}
-                _placeholder={{ color: "gray.500" }}
+                _placeholder={{ color: "gray.300" }}
                 fontSize={20}
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
@@ -214,7 +236,7 @@ const Upload = () => {
                     ) : (
                       <>
                         <IoCloudUpload fontSize={30} color="white" />
-                        <Text>Click to upload video</Text>
+                        <Text color={"gray.300"}>Click to upload video</Text>
                       </>
                     )}
                   </Flex>
@@ -266,6 +288,36 @@ const Upload = () => {
               </Box>
             )}
           </Flex>
+          {/* Text editor */}
+          <Text color={"gray.300"} textAlign={"left"} fontWeight={"semibold"}>
+            Add Description:
+          </Text>
+          <Box
+            bg={"whiteAlpha.800"}
+            h="80%"
+            w={["full", "65vw"]}
+            borderRadius={"md"}
+            color={"black"}
+          >
+            <ReactQuill
+              theme="snow"
+              value={description}
+              onChange={setDescription}
+            />
+          </Box>
+          <Button
+            colorScheme="red"
+            px={16}
+            py={6}
+            mt={1}
+            fontSize={18}
+            // isDisabled={!videoAsset}
+            isLoading={loading}
+            loadingText="Uploading..."
+            onClick={uploadDetails}
+          >
+            Upload
+          </Button>
         </Flex>
       </Flex>
     </Box>
