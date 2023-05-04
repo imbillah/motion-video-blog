@@ -22,11 +22,10 @@ import {
 } from "react-icons/io5";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { categories } from "../../data";
 import { Notify, Spinner } from "../../components";
 import initilizeFirebase from "../../firebase/Config";
-import { fetchUser } from "../../utils/getUser";
 
 import {
   getStorage,
@@ -37,6 +36,7 @@ import {
 } from "firebase/storage";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import userStore from "../../store/userStore";
 const Upload = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Select a category");
@@ -49,8 +49,7 @@ const Upload = () => {
   const [alertText, setAlertText] = useState("");
   const [alertIcon, setAlertIcon] = useState(null);
   const [description, setDescription] = useState("");
-
-  const [userInfo] = fetchUser();
+  const { user } = userStore();
   const storage = getStorage(initilizeFirebase());
   const firebaseDB = getFirestore(initilizeFirebase());
   const navigate = useNavigate();
@@ -109,7 +108,7 @@ const Upload = () => {
       setLoading(true);
       const data = {
         id: `${Date.now()}`,
-        userId: userInfo?.uid,
+        userId: user.uid,
         title,
         category,
         location,
@@ -311,7 +310,7 @@ const Upload = () => {
             py={6}
             mt={1}
             fontSize={18}
-            // isDisabled={!videoAsset}
+            isDisabled={!videoAsset}
             isLoading={loading}
             loadingText="Uploading..."
             onClick={uploadDetails}

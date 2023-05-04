@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Navbar,
   Category,
@@ -10,10 +9,11 @@ import {
 import { Box, Flex } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
 import { categories } from "../../data";
-const Home = ({ user }) => {
+
+const Home = () => {
   return (
     <Box>
-      <Navbar user={user} />
+      <Navbar />
       <Flex bg={"black"} height={"100vh"}>
         <Flex
           direction={"column"}
@@ -27,7 +27,7 @@ const Home = ({ user }) => {
           {categories &&
             categories.map((data) => <Category key={data.id} catData={data} />)}
         </Flex>
-        <Flex width={"100vw"} justifyContent={"center"} alignItems={"center"}>
+        <Flex width={"100vw"}>
           <Routes>
             <Route path="/" element={<Feeds />} />
             <Route path="/category/:catId" ele element={<Feeds />} />

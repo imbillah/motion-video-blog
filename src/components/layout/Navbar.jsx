@@ -1,7 +1,6 @@
 import React from "react";
 import Logo from "../../assets/motionLogo.png";
-import { Link, useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
+import { Link } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -12,15 +11,16 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Spacer,
   Text,
 } from "@chakra-ui/react";
 import { IoSearch } from "react-icons/io5";
 import { RiVideoUploadLine } from "react-icons/ri";
+import userStore from "../../store/userStore";
 
-const Navbar = ({ user }) => {
+const Navbar = () => {
+  const { user, logout } = userStore();
   return (
-    <Box>
+    <Box border={"1px"}>
       <Flex
         justifyContent={"space-between"}
         alignItems={"center"}
@@ -69,29 +69,31 @@ const Navbar = ({ user }) => {
                 <RiVideoUploadLine size={30} />
               </Link>
             </Box>
-            <Box
-              bg={"white"}
-              height={"40px"}
-              width={"40px"}
-              borderRadius={"full"}
-              textColor={"black"}
-            >
-              <Menu>
-                <MenuButton>
-                  <Image
-                    src={user?.photoURL}
-                    width={"40px"}
-                    height={"40px"}
-                    rounded={"full"}
-                  />
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>Download</MenuItem>
-                  <MenuDivider />
-                  <MenuItem>Log Out</MenuItem>
-                </MenuList>
-              </Menu>
-            </Box>
+            {user && (
+              <Box
+                bg={"white"}
+                height={"40px"}
+                width={"40px"}
+                borderRadius={"full"}
+                textColor={"black"}
+              >
+                <Menu>
+                  <MenuButton>
+                    <Image
+                      src={user?.photoURL}
+                      width={"40px"}
+                      height={"40px"}
+                      rounded={"full"}
+                    />
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem>Download</MenuItem>
+                    <MenuDivider />
+                    <MenuItem onClick={logout}>Log Out</MenuItem>
+                  </MenuList>
+                </Menu>
+              </Box>
+            )}
           </Flex>
         </Box>
       </Flex>

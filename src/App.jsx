@@ -1,24 +1,20 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Home, Login } from "./components";
-import { useEffect, useState } from "react";
-import { fetchUser, userAccessToken } from "./utils/getUser";
+import { useEffect } from "react";
+import userStore from "./store/userStore";
 function App() {
-  const [user, setUser] = useState(null);
+  const { user } = userStore();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const accessToken = userAccessToken();
-    if (!accessToken) {
-      navigate("/login", { replace: true });
-    } else {
-      const [userInfo] = fetchUser();
-      setUser(userInfo);
-    }
-  }, []);
+    if (user) {
+      navigate("/", { replace: true });
+    } else return;
+  }, [user]);
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/*" element={<Home user={user} />} />
+      <Route path="/*" element={<Home />} />
     </Routes>
   );
 }

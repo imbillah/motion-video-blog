@@ -4,7 +4,7 @@ import { CirclesWithBar } from "react-loader-spinner";
 const Spinner = ({ text, progress }) => {
   useEffect(() => {}, [progress]);
   return (
-    <Box>
+    <Box bg={"black"} h={"100vh"}>
       <Flex
         direction={"column"}
         justifyContent={"center"}
@@ -18,7 +18,13 @@ const Spinner = ({ text, progress }) => {
           color="red"
           ariaLabel="circles-with-bar-loading"
         />
-        <Text fontSize={18} px={2} mt={2} textAlign={"center"}>
+        <Text
+          fontSize={18}
+          px={2}
+          mt={2}
+          textAlign={"center"}
+          color={"gray.300"}
+        >
           {text}
         </Text>
         {progress && (
