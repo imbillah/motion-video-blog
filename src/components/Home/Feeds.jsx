@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
-
-import { getAllFeeds } from "../../utils/getData";
+import { useEffect } from "react";
 import Spinner from "../others/Spinner";
-import { Box, SimpleGrid, Text } from "@chakra-ui/react";
-import Video from "./Video";
+import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Video } from "../../components";
 import videoStore from "../../store/videoStore";
 const Feeds = () => {
-  const [feeds, setFeeds] = useState();
-  const [loading, setLoading] = useState(false);
   const { videos, fetchVideos } = videoStore();
-
   useEffect(() => {
     fetchVideos();
   }, [fetchVideos]);

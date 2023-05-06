@@ -3,8 +3,8 @@ import {
   Category,
   Feeds,
   Upload,
-  Video,
   Search,
+  VideoPlayer,
 } from "../../components";
 import { Box, Flex } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
@@ -32,7 +32,7 @@ const Home = () => {
             <Route path="/" element={<Feeds />} />
             <Route path="/category/:catId" ele element={<Feeds />} />
             <Route path="/upload" element={<Upload />} />
-            <Route path="/video/:vidId" element={<Video />} />
+            <Route path="/video/:vidId" element={<VideoPlayer />} />
             <Route path="/search" element={<Search />} />
           </Routes>
         </Flex>

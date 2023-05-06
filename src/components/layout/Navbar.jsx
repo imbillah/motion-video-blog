@@ -3,6 +3,7 @@ import Logo from "../../assets/motionLogo.png";
 import { Link } from "react-router-dom";
 import {
   Box,
+  Button,
   Flex,
   Image,
   Input,
@@ -16,7 +17,7 @@ import {
 import { IoSearch } from "react-icons/io5";
 import { RiVideoUploadLine } from "react-icons/ri";
 import userStore from "../../store/userStore";
-
+import userAvatar from "../../assets/userAvatar.png";
 const Navbar = () => {
   const { user, logout } = userStore();
   return (
@@ -69,7 +70,7 @@ const Navbar = () => {
                 <RiVideoUploadLine size={30} />
               </Link>
             </Box>
-            {user && (
+            {user ? (
               <Box
                 bg={"white"}
                 height={"40px"}
@@ -80,7 +81,7 @@ const Navbar = () => {
                 <Menu>
                   <MenuButton>
                     <Image
-                      src={user?.photoURL}
+                      src={user?.photoURL || userAvatar}
                       width={"40px"}
                       height={"40px"}
                       rounded={"full"}
@@ -93,6 +94,12 @@ const Navbar = () => {
                   </MenuList>
                 </Menu>
               </Box>
+            ) : (
+              <Link to={"/login"}>
+                <Button bg="red" colorScheme="red">
+                  Log in
+                </Button>
+              </Link>
             )}
           </Flex>
         </Box>

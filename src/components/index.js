@@ -5,9 +5,10 @@ import Feeds from "./Home/Feeds";
 import Search from "./Home/Search";
 import Navbar from "./layout/Navbar";
 import Category from "./Home/Category";
-import Video from "./Home/Video";
+import Video from "./video/Video";
 import Spinner from "./others/Spinner";
 import Notify from "./others/Notify";
+import VideoPlayer from "./video/VideoPlayer";
 
 export {
   Home,
@@ -20,4 +21,5 @@ export {
   Video,
   Spinner,
   Notify,
+  VideoPlayer,
 };

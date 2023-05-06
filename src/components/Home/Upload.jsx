@@ -22,7 +22,7 @@ import {
 } from "react-icons/io5";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { categories } from "../../data";
 import { Notify, Spinner } from "../../components";
 import initilizeFirebase from "../../firebase/Config";
@@ -53,6 +53,13 @@ const Upload = () => {
   const storage = getStorage(initilizeFirebase());
   const firebaseDB = getFirestore(initilizeFirebase());
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login", { replace: true });
+    } else return;
+  }, [user]);
+  console.log(user);
   // uploading video to firestore
   const handleUpload = (e) => {
     setLoading(true);
@@ -108,7 +115,9 @@ const Upload = () => {
       setLoading(true);
       const data = {
         id: `${Date.now()}`,
-        userId: user.uid,
+        userId: user?.uid,
+        userName: user?.name,
+        userImage: user?.photoURL,
         title,
         category,
         location,
@@ -119,7 +128,7 @@ const Upload = () => {
       setLoading(false);
       navigate("/", { replace: true });
     } catch (error) {
-      alert(error.message);
+      console.log(error.message);
     }
   };
   return (

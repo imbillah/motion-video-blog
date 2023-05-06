@@ -1,5 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Home, Login } from "./components";
+import { Home, Login, Spinner } from "./components";
 import { useEffect } from "react";
 import userStore from "./store/userStore";
 function App() {
@@ -11,6 +11,7 @@ function App() {
       navigate("/", { replace: true });
     } else return;
   }, [user]);
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />

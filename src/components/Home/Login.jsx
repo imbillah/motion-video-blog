@@ -25,9 +25,9 @@ const Login = () => {
       >
         <HStack>
           <Button
+            bg="red"
+            colorScheme="red"
             leftIcon={<FcGoogle size={25} />}
-            shadow={"lg"}
-            bg={"#FF0000"}
             onClick={() => login()}
           >
             Sign In with Google
