@@ -88,7 +88,9 @@ const Navbar = () => {
                     />
                   </MenuButton>
                   <MenuList>
-                    <MenuItem>Download</MenuItem>
+                    <Link to="/dashboard">
+                      <MenuItem>Dashboard</MenuItem>
+                    </Link>
                     <MenuDivider />
                     <MenuItem onClick={logout}>Log Out</MenuItem>
                   </MenuList>

@@ -1,7 +1,85 @@
-import React from "react";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  Image,
+  Text,
+} from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import videoStore from "../../store/videoStore";
+import Spinner from "../others/Spinner";
+import ReactPlayer from "react-player";
+import { useEffect, useState } from "react";
+import { MdDownloadForOffline } from "react-icons/md";
 
 const VideoPlayer = () => {
-  return <div>VideoPlayer</div>;
+  const [selectedVideo, setSelectedVideo] = useState([]);
+  const { vidId } = useParams();
+  const { videos } = videoStore();
+  useEffect(() => {
+    const filtredVideo = videos.filter((video) => video.id === vidId);
+    setSelectedVideo(filtredVideo[0]);
+  }, []);
+  const { description, title, videoUrl, userImage, userName, location } =
+    selectedVideo;
+  return (
+    <>
+      {selectedVideo ? (
+        <Box
+          color={"white"}
+          p={[2, 5]}
+          mt={5}
+          width={"100%"}
+          border={"2px"}
+          borderColor={"gray"}
+        >
+          <Text fontSize={25} fontWeight={"semibold"} mb={2}>
+            {title}
+          </Text>
+          <Grid templateColumns={["repeat(1, 1fr)", "repeat(3, 1fr)"]} gap={3}>
+            <GridItem colSpan={2}>
+              <video
+                src={videoUrl}
+                controls
+                width={"100%"}
+                height={"100%"}
+                style={{ borderRadius: "10px" }}
+              />
+              {/* video details */}
+              <Box mt={2} bg={"gray.900"} p={2} borderRadius={"5px"}>
+                <Flex gap={2} alignItems={"center"}>
+                  <Image
+                    src={userImage}
+                    h={["45px", "55px"]}
+                    rounded={"full"}
+                    bg={"white"}
+                  />
+                  <Box>
+                    <Text fontSize={["14px", "18px"]} fontWeight={"semibold"}>
+                      {userName}
+                    </Text>
+                    <Text fontSize={"13px"} color={"gray.300"}>
+                      {location}
+                    </Text>
+                  </Box>
+                </Flex>
+                <Text mt={5}>
+                  <div dangerouslySetInnerHTML={{ __html: description }}></div>
+                </Text>
+              </Box>
+            </GridItem>
+            <GridItem>
+              <Text>Related Video</Text>
+            </GridItem>
+          </Grid>
+        </Box>
+      ) : (
+        <Spinner />
+      )}
+    </>
+  );
 };
 
 export default VideoPlayer;

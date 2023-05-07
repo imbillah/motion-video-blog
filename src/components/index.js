@@ -9,6 +9,7 @@ import Video from "./video/Video";
 import Spinner from "./others/Spinner";
 import Notify from "./others/Notify";
 import VideoPlayer from "./video/VideoPlayer";
+import UserProfile from "../components/profile/UserProfile";
 
 export {
   Home,
@@ -22,4 +23,5 @@ export {
   Spinner,
   Notify,
   VideoPlayer,
+  UserProfile,
 };

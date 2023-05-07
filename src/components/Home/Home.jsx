@@ -5,6 +5,7 @@ import {
   Upload,
   Search,
   VideoPlayer,
+  UserProfile,
 } from "../../components";
 import { Box, Flex } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
@@ -33,6 +34,7 @@ const Home = () => {
             <Route path="/category/:catId" ele element={<Feeds />} />
             <Route path="/upload" element={<Upload />} />
             <Route path="/video/:vidId" element={<VideoPlayer />} />
+            <Route path="/dashboard" element={<UserProfile />} />
             <Route path="/search" element={<Search />} />
           </Routes>
         </Flex>
