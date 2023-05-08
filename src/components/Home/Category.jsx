@@ -15,7 +15,7 @@ const Category = ({ icon, label }) => {
         arrowSize={5}
         placement="right"
       >
-        <Box fontSize={25}>{renderIcon(icon)}</Box>
+        <Box fontSize={30}>{renderIcon(icon)}</Box>
       </Tooltip>
     </Box>
   );

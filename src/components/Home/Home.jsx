@@ -13,9 +13,9 @@ import { iconArray } from "../../data";
 
 const Home = () => {
   return (
-    <Box>
+    <Box height={"100vh"}>
       <Navbar />
-      <Flex bg={"black"} height={"100%"}>
+      <Flex bg={"black"}>
         <Flex
           direction={"column"}
           justifyContent={"start"}
@@ -24,10 +24,11 @@ const Home = () => {
           gap={8}
           marginTop={8}
           borderRight={"1px"}
+          height={"100%"}
         >
           {iconArray &&
-            iconArray.map(({ icon, label }) => (
-              <Category icon={icon} label={label} />
+            iconArray.map(({ icon, label, id }) => (
+              <Category icon={icon} label={label} key={id} />
             ))}
         </Flex>
         <Flex width={"100vw"}>

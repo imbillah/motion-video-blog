@@ -10,7 +10,7 @@ const Feeds = () => {
   }, [fetchVideos]);
 
   return (
-    <Box width={"100%"} mt={"30px"} mx={[0, 5]} height={"100vh"}>
+    <Box width={"100%"} mt={"30px"} mx={[0, 5]}>
       {!videos ? (
         <Spinner text="Loading Videos..." />
       ) : (
