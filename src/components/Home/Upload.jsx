@@ -59,7 +59,6 @@ const Upload = () => {
       navigate("/login", { replace: true });
     } else return;
   }, [user]);
-  console.log(user);
   // uploading video to firestore
   const handleUpload = (e) => {
     setLoading(true);
