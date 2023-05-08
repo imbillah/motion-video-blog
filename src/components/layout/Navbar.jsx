@@ -50,7 +50,6 @@ const Navbar = () => {
         {/* search box */}
         <Box border="2px" p={2} borderRadius="full" borderColor="gray.200">
           <Flex alignItems={"center"}>
-            <IoSearch size={25} />
             <Input
               width={{ md: "50vw" }}
               variant="unstyled"
@@ -60,6 +59,7 @@ const Navbar = () => {
               marginLeft={2}
               color={"gray.300"}
             />
+            <IoSearch size={25} cursor={"pointer"} />
           </Flex>
         </Box>
         {/* profile */}

@@ -56,7 +56,12 @@ const VideoPlayer = () => {
                 </Box>
               </Box>
             </GridItem>
-            <GridItem>
+            {/* related videos */}
+            <GridItem
+              borderLeft={[0, "1px"]}
+              borderColor={[null, "gray.500"]}
+              px={[1, 3]}
+            >
               <Text fontSize={20} mb={1}>
                 Related Videos
               </Text>

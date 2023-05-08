@@ -30,14 +30,15 @@ const UserProfile = () => {
       }, 5000);
     }
   };
+
   return (
-    <Box p={2} color={"white"} width={"100%"}>
+    <Box p={2} color={"white"} width={"100%"} height={"100vh"}>
       {/* user info */}
       <Box
         bg={"gray.900"}
         p={5}
         borderRadius={"10px"}
-        width={"60%"}
+        width={["95%", "60%"]}
         mx={"auto"}
         mt={2}
       >
@@ -46,7 +47,7 @@ const UserProfile = () => {
             <Flex alignItems={"center"} gap={2}>
               <Image src={user?.photoURL} rounded={"full"} bg={"white"} />
               <Box>
-                <Text fontSize={20} fontWeight={"semibold"}>
+                <Text fontSize={[18, 20]} fontWeight={"semibold"}>
                   Name: {user?.name}
                 </Text>
                 <Text color={"gray.300"} fontStyle={"italic"}>
@@ -55,19 +56,30 @@ const UserProfile = () => {
               </Box>
             </Flex>
           </Box>
-          <Button bg={"red"} colorScheme="red" onClick={logout}>
+          <Button
+            display={["none", "block"]}
+            bg={"red"}
+            colorScheme="red"
+            onClick={logout}
+          >
             <AiOutlineLogout fontSize={25} />
           </Button>
         </Flex>
       </Box>
       {/* user videos */}
-      <Box width={"60%"} mx={"auto"} mt={4}>
+      <Box width={["95%", "60%"]} mx={"auto"} mt={4}>
         {alert && (
           <Notify status={alertStatus} text={alertText} icon={alertIcon} />
         )}
+
         <Text fontSize={20} fontWeight={"semibold"}>
           My Uploads
         </Text>
+        {filteredVideo.length === 0 && (
+          <Text color={"gray.300"} fontSize={18}>
+            You didn't upload any video yet !!
+          </Text>
+        )}
         <Box width={"100%"} mt={5}>
           <Flex direction={"column"} gap={3}>
             {filteredVideo.map((video) => (
