@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <Box>
       <Navbar />
-      <Flex bg={"black"} height={"100vh"}>
+      <Flex bg={"black"} height={"100%"}>
         <Flex
           direction={"column"}
           justifyContent={"start"}

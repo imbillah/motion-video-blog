@@ -1,44 +1,30 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem, Image, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import videoStore from "../../store/videoStore";
 import Spinner from "../others/Spinner";
-import ReactPlayer from "react-player";
 import { useEffect, useState } from "react";
-import { MdDownloadForOffline } from "react-icons/md";
-
+import Video from "./Video";
 const VideoPlayer = () => {
   const [selectedVideo, setSelectedVideo] = useState([]);
   const { vidId } = useParams();
   const { videos } = videoStore();
+  const relatedVideos = videos.filter(
+    (video) => video.category === selectedVideo.category && video.id !== vidId
+  );
   useEffect(() => {
     const filtredVideo = videos.filter((video) => video.id === vidId);
     setSelectedVideo(filtredVideo[0]);
-  }, []);
+  }, [vidId]);
   const { description, title, videoUrl, userImage, userName, location } =
-    selectedVideo;
+    selectedVideo ?? {};
   return (
     <>
       {selectedVideo ? (
-        <Box
-          color={"white"}
-          p={[2, 5]}
-          mt={5}
-          width={"100%"}
-          border={"2px"}
-          borderColor={"gray"}
-        >
+        <Box color={"white"} p={[2, 5]} mt={5} width={"100%"}>
           <Text fontSize={25} fontWeight={"semibold"} mb={2}>
             {title}
           </Text>
-          <Grid templateColumns={["repeat(1, 1fr)", "repeat(3, 1fr)"]} gap={3}>
+          <Grid templateColumns={["repeat(1, 1fr)", "repeat(3, 1fr)"]} gap={2}>
             <GridItem colSpan={2}>
               <video
                 src={videoUrl}
@@ -65,13 +51,19 @@ const VideoPlayer = () => {
                     </Text>
                   </Box>
                 </Flex>
-                <Text mt={5}>
+                <Box mt={5}>
                   <div dangerouslySetInnerHTML={{ __html: description }}></div>
-                </Text>
+                </Box>
               </Box>
             </GridItem>
             <GridItem>
-              <Text>Related Video</Text>
+              <Text fontSize={20} mb={1}>
+                Related Videos
+              </Text>
+              {relatedVideos.length !== 0 &&
+                relatedVideos.map((video) => (
+                  <Video key={video.id} video={video} />
+                ))}
             </GridItem>
           </Grid>
         </Box>

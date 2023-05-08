@@ -1,12 +1,10 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, GridItem, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import userAvatar from "../../assets/userAvatar.png";
 import moment from "moment/moment";
-const Video = ({
-  video: { videoUrl, description, title, userImage, userName, id, userId },
-}) => {
+const Video = ({ video: { videoUrl, title, userImage, id } }) => {
   return (
-    <Box>
+    <GridItem>
       <Link to={`/video/${id}`}>
         <Box borderRadius={5} cursor={"pointer"}>
           <video
@@ -48,7 +46,7 @@ const Video = ({
           </Flex>
         </Box>
       </Link>
-    </Box>
+    </GridItem>
   );
 };
 
