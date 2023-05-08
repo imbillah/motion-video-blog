@@ -1,10 +1,11 @@
+import { icons } from "./utils/icons";
 export const iconArray = [
-  { icon: "IoGameController", label: "Game" },
-  { icon: "IoMusicalNote", label: "Music" },
-  { icon: "FaSmileWink", label: "Smiley" },
-  { icon: "FaFilm", label: "Film" },
-  { icon: "GiAngelOutfit", label: "Angel" },
-  { icon: "MdEmojiNature", label: "Nature" },
+  { icon: icons.IoGameController, label: "Game" },
+  { icon: icons.IoMusicalNote, label: "Music" },
+  { icon: icons.FaSmileWink, label: "Funny" },
+  { icon: icons.FaFilm, label: "Movies" },
+  { icon: icons.GiAngelOutfit, label: "Anime" },
+  { icon: icons.MdEmojiNature, label: "Nature" },
 ];
 
 export const categories = [
