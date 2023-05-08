@@ -1,26 +1,27 @@
-import React from "react";
+import React, { createElement } from "react";
 import { IoGameController, IoMusicalNote } from "react-icons/io5";
-import { FaSmileWink, FaFilm, FaQq } from "react-icons/fa";
+import { FaSmileWink, FaFilm } from "react-icons/fa";
 import { GiAngelOutfit } from "react-icons/gi";
 import { MdEmojiNature } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Box, Tooltip } from "@chakra-ui/react";
-const Category = ({ catData }) => {
-  const Icon = eval(catData.icon);
+const Category = ({ icon, label }) => {
+  const renderIcon = (iconName) => {
+    const IconComponent = eval(iconName);
+    return createElement(IconComponent);
+  };
   return (
-    <Box color={"red"}>
-      <Link to={`/category/${catData.name}`}>
-        <Tooltip
-          hasArrow
-          label={catData.name}
-          bg={"red.500"}
-          closeDelay={250}
-          arrowSize={5}
-          placement="right"
-        >
-          <Box>{<Icon fontSize={30} />}</Box>
-        </Tooltip>
-      </Link>
+    <Box color={"red"} cursor={"pointer"}>
+      <Tooltip
+        hasArrow
+        label={label}
+        bg={"red.500"}
+        closeDelay={250}
+        arrowSize={5}
+        placement="right"
+      >
+        <Box fontSize={25}>{renderIcon(icon)}</Box>
+      </Tooltip>
     </Box>
   );
 };

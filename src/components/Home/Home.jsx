@@ -9,7 +9,7 @@ import {
 } from "../../components";
 import { Box, Flex } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
-import { categories } from "../../data";
+import { iconArray } from "../../data";
 
 const Home = () => {
   return (
@@ -25,8 +25,10 @@ const Home = () => {
           marginTop={8}
           borderRight={"1px"}
         >
-          {categories &&
-            categories.map((data) => <Category key={data.id} catData={data} />)}
+          {iconArray &&
+            iconArray.map(({ icon, label }) => (
+              <Category icon={icon} label={label} />
+            ))}
         </Flex>
         <Flex width={"100vw"}>
           <Routes>

@@ -1,3 +1,12 @@
+export const iconArray = [
+  { icon: "IoGameController", label: "Game" },
+  { icon: "IoMusicalNote", label: "Music" },
+  { icon: "FaSmileWink", label: "Smiley" },
+  { icon: "FaFilm", label: "Film" },
+  { icon: "GiAngelOutfit", label: "Angel" },
+  { icon: "MdEmojiNature", label: "Nature" },
+];
+
 export const categories = [
   { id: 1, name: "Movies", icon: "FaFilm" },
   { id: 2, name: "Music", icon: "IoMusicalNote" },
