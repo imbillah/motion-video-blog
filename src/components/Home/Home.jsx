@@ -42,7 +42,7 @@ const Home = () => {
                 <Route path="/video/:vidId" element={<VideoPlayer />} />
                 <Route path="/dashboard" element={<UserProfile />} />
                 <Route path="/category/:catName" element={<CategoryPage />} />
-                <Route path="/search" element={<SearchResult />} />
+                <Route path="/search/:keyword" element={<SearchResult />} />
               </Routes>
             </Flex>
           </Box>

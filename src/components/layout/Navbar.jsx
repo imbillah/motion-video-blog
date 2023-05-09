@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../assets/motionLogo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -19,7 +19,14 @@ import { RiVideoUploadLine } from "react-icons/ri";
 import userStore from "../../store/userStore";
 import userAvatar from "../../assets/userAvatar.png";
 const Navbar = () => {
+  const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
   const { user, logout } = userStore();
+
+  const handleSearch = () => {
+    navigate(`/search/${inputValue}`);
+    setInputValue("");
+  };
   return (
     <Box border={"1px"}>
       <Flex
@@ -58,10 +65,11 @@ const Navbar = () => {
               height={"25px"}
               marginLeft={2}
               color={"gray.300"}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
             />
-            <Link to={"/search"}>
-              <IoSearch size={25} cursor={"pointer"} />
-            </Link>
+
+            <IoSearch onClick={handleSearch} size={25} cursor={"pointer"} />
           </Flex>
         </Box>
         {/* profile */}
