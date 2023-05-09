@@ -12,7 +12,6 @@ import initilizeFirebase from "../firebase/Config";
 const db = getFirestore(initilizeFirebase());
 const videoStore = create((set, get) => ({
   videos: [],
-
   async fetchVideos() {
     const videosQuery = query(collection(db, "videos"), orderBy("id", "desc"));
     const videosSnapshot = await getDocs(videosQuery);
@@ -22,6 +21,7 @@ const videoStore = create((set, get) => ({
     }));
     set({ videos: videosData });
   },
+  // deleting indivisual user video
   deleteVideo: async (videoId) => {
     try {
       const videoRef = doc(collection(db, "videos"), videoId);

@@ -23,7 +23,7 @@ import {
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import React, { useEffect, useState } from "react";
-import { categories } from "../../data";
+import { iconArray } from "../../data";
 import { Notify, Spinner } from "../../components";
 import initilizeFirebase from "../../firebase/Config";
 
@@ -175,16 +175,16 @@ const Upload = () => {
                 {category}
               </MenuButton>
               <MenuList zIndex={101} width={["100%", "md"]}>
-                {categories &&
-                  categories.map((item) => (
+                {iconArray &&
+                  iconArray.map((item) => (
                     <MenuItem
                       key={item.id}
                       _hover={{ bg: "gray.300" }}
                       px={4}
                       fontSize={16}
-                      onClick={() => setCategory(item.name)}
+                      onClick={() => setCategory(item.label)}
                     >
-                      {item.name}
+                      {item.label}
                     </MenuItem>
                   ))}
               </MenuList>

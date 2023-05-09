@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Spinner from "../others/Spinner";
-import { Box, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 import { Video } from "../../components";
 import videoStore from "../../store/videoStore";
 const Feeds = () => {
@@ -10,7 +10,7 @@ const Feeds = () => {
   }, [fetchVideos]);
 
   return (
-    <Box width={"100%"} mt={"30px"} mx={[0, 5]}>
+    <Box my={"20px"} width={"full"}>
       {!videos ? (
         <Spinner text="Loading Videos..." />
       ) : (

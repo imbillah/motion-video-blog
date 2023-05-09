@@ -59,7 +59,9 @@ const Navbar = () => {
               marginLeft={2}
               color={"gray.300"}
             />
-            <IoSearch size={25} cursor={"pointer"} />
+            <Link to={"/search"}>
+              <IoSearch size={25} cursor={"pointer"} />
+            </Link>
           </Flex>
         </Box>
         {/* profile */}
